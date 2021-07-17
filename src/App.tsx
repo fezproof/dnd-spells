@@ -1,25 +1,7 @@
 import React from 'react';
-import { useQuery } from 'urql';
-
-const ClassesQuery = `
-  query {
-    classes {
-      index
-      name
-    }
-  }
-`;
+import ClassList from './components/ClassList';
 
 function App() {
-  const [result, reexecuteQuery] = useQuery({
-    query: ClassesQuery,
-  });
-
-  const { data, fetching, error } = result;
-
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
   return (
     <div className="bg-white">
       <div className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 mx-auto max-w-screen-xl">
@@ -31,11 +13,7 @@ function App() {
             DnD spells
           </p>
         </div>
-        <ul>
-          {data.classes.map(({ index, name }) => (
-            <li key={index}>{name}</li>
-          ))}
-        </ul>
+        <ClassList />
       </div>
     </div>
   );

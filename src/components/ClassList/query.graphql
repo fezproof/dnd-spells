@@ -1,0 +1,10 @@
+query Classes {
+  classes {
+    index
+    name
+    subclasses {
+      index
+      name
+    }
+  }
+}
