@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useClassesQuery } from '../../generated/graphql';
 import ClassSpellList from '../ClassSpellList';
+import SubClassSpellList from '../SubclassSpellList';
 
 const ClassList: FC = () => {
   const [result] = useClassesQuery();
@@ -23,8 +24,13 @@ const ClassList: FC = () => {
                   <h3 className="mb-2 text-lg">Subclasses:</h3>
                   <ul className="ml-4">
                     {subclasses.map((subclass) => {
-                      if (!subclass) return null;
-                      return <li key={subclass.index}>{subclass.name}</li>;
+                      if (!subclass || !subclass?.index) return null;
+                      return (
+                        <li key={subclass.index}>
+                          {subclass.name}
+                          <SubClassSpellList subclass={subclass.index} />
+                        </li>
+                      );
                     })}
                   </ul>
                 </div>

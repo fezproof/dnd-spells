@@ -1,17 +1,16 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import {
-  ClassSpellListQueryVariables,
-  useClassSpellListQuery,
+  SubClassSpellListQueryVariables,
+  useSubClassSpellListQuery,
 } from '../../generated/graphql';
 import SpellDetails from '../SpellDetails';
 
-const ClassSpellList: FC<ClassSpellListQueryVariables> = ({
-  class: classVar,
+const SubClassSpellList: FC<SubClassSpellListQueryVariables> = ({
+  subclass,
 }) => {
-  const [result] = useClassSpellListQuery({
+  const [result] = useSubClassSpellListQuery({
     variables: {
-      class: classVar,
+      subclass,
     },
   });
   const { data, fetching, error } = result;
@@ -27,10 +26,10 @@ const ClassSpellList: FC<ClassSpellListQueryVariables> = ({
           ? data?.spells.map((spell) => (
               <SpellDetails key={spell.index} spell={spell} />
             ))
-          : 'This Class has no spells'}
+          : 'This Subclass has no spells'}
       </div>
     </div>
   );
 };
 
-export default ClassSpellList;
+export default SubClassSpellList;

@@ -14747,6 +14747,19 @@ export type SpellDetailsFragment = (
   )> }
 );
 
+export type SubClassSpellListQueryVariables = Exact<{
+  subclass: Scalars['String'];
+}>;
+
+
+export type SubClassSpellListQuery = (
+  { __typename?: 'Query' }
+  & { spells: Array<(
+    { __typename?: 'Spell' }
+    & SpellDetailsFragment
+  )> }
+);
+
 export const SpellDetailsFragmentDoc = gql`
     fragment SpellDetails on Spell {
   index
@@ -14788,7 +14801,7 @@ export function useClassesQuery(options: Omit<Urql.UseQueryArgs<ClassesQueryVari
 };
 export const ClassSpellListDocument = gql`
     query ClassSpellList($class: String!) {
-  spells(filter: {classes: [{index: $class}]}) {
+  spells(filter: {classes: [{index: $class}]}, limit: 10) {
     ...SpellDetails
   }
 }
@@ -14796,4 +14809,15 @@ export const ClassSpellListDocument = gql`
 
 export function useClassSpellListQuery(options: Omit<Urql.UseQueryArgs<ClassSpellListQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ClassSpellListQuery>({ query: ClassSpellListDocument, ...options });
+};
+export const SubClassSpellListDocument = gql`
+    query SubClassSpellList($subclass: String!) {
+  spells(filter: {subclasses: [{index: $subclass}]}, limit: 10) {
+    ...SpellDetails
+  }
+}
+    ${SpellDetailsFragmentDoc}`;
+
+export function useSubClassSpellListQuery(options: Omit<Urql.UseQueryArgs<SubClassSpellListQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<SubClassSpellListQuery>({ query: SubClassSpellListDocument, ...options });
 };
