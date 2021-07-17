@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { useClassesQuery } from '../../generated/graphql';
-import ClassSpellList from '../ClassSpellList';
-import SubClassSpellList from '../SubclassSpellList';
 
 const ClassList: FC = () => {
   const [result] = useClassesQuery();
@@ -18,7 +17,7 @@ const ClassList: FC = () => {
           index && (
             <li key={index} className="mb-6">
               <h2 className="mb-4 text-xl">{name}</h2>
-              <ClassSpellList class={index} />
+              <Link to={`class/${index}`}>Go to</Link>
               {subclasses && (
                 <div>
                   <h3 className="mb-2 text-lg">Subclasses:</h3>
@@ -27,8 +26,7 @@ const ClassList: FC = () => {
                       if (!subclass || !subclass?.index) return null;
                       return (
                         <li key={subclass.index}>
-                          {subclass.name}
-                          <SubClassSpellList subclass={subclass.index} />
+                          <h4>{subclass.name}</h4>
                         </li>
                       );
                     })}

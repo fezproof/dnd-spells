@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassList from './components/ClassList';
+import AppRouter from './routes';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
             DnD spells
           </p>
         </div>
-        <ClassList />
+        <AppRouter />
       </div>
     </div>
   );
