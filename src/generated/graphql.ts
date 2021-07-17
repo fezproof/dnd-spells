@@ -14707,6 +14707,30 @@ export type WeaponProperty = {
   url?: Maybe<Scalars['String']>;
 };
 
+export type ClassDescriptionQueryVariables = Exact<{
+  index: Scalars['String'];
+}>;
+
+
+export type ClassDescriptionQuery = (
+  { __typename?: 'Query' }
+  & { class?: Maybe<(
+    { __typename?: 'Class' }
+    & Pick<Class, 'index' | 'name'>
+    & { spellcasting?: Maybe<(
+      { __typename?: 'ClassSpellcasting' }
+      & Pick<ClassSpellcasting, 'level'>
+      & { info?: Maybe<Array<Maybe<(
+        { __typename?: 'ClassSpellcastingInfo' }
+        & Pick<ClassSpellcastingInfo, 'name' | 'desc'>
+      )>>>, spellcasting_ability?: Maybe<(
+        { __typename?: 'ClassSpellcastingSpellcasting_ability' }
+        & Pick<ClassSpellcastingSpellcasting_Ability, 'index' | 'name'>
+      )> }
+    )> }
+  )> }
+);
+
 export type ClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -14722,8 +14746,27 @@ export type ClassesQuery = (
   )> }
 );
 
+export type ClassSpellLevelsQueryVariables = Exact<{
+  index: Scalars['String'];
+  level: Scalars['Float'];
+}>;
+
+
+export type ClassSpellLevelsQuery = (
+  { __typename?: 'Query' }
+  & { level?: Maybe<(
+    { __typename?: 'Level' }
+    & Pick<Level, 'index'>
+    & { spellcasting?: Maybe<(
+      { __typename?: 'LevelSpellcasting' }
+      & Pick<LevelSpellcasting, 'cantrips_known' | 'spell_slots_level_1' | 'spell_slots_level_2' | 'spell_slots_level_3' | 'spell_slots_level_4' | 'spell_slots_level_5' | 'spell_slots_level_6' | 'spell_slots_level_7' | 'spell_slots_level_8' | 'spell_slots_level_9' | 'spells_known'>
+    )> }
+  )> }
+);
+
 export type ClassSpellListQueryVariables = Exact<{
   index: Scalars['String'];
+  level: Scalars['Float'];
 }>;
 
 
@@ -14744,7 +14787,10 @@ export type SpellDetailsFragment = (
   )>, area_of_effect?: Maybe<(
     { __typename?: 'SpellArea_of_effect' }
     & Pick<SpellArea_Of_Effect, 'size' | 'type'>
-  )> }
+  )>, subclasses?: Maybe<Array<Maybe<(
+    { __typename?: 'SpellSubclasses' }
+    & Pick<SpellSubclasses, 'index' | 'name'>
+  )>>> }
 );
 
 export type SubClassSpellListQueryVariables = Exact<{
@@ -14781,8 +14827,35 @@ export const SpellDetailsFragmentDoc = gql`
   }
   attack_type
   desc
+  subclasses {
+    index
+    name
+  }
 }
     `;
+export const ClassDescriptionDocument = gql`
+    query ClassDescription($index: String!) {
+  class(filter: {index: $index}) {
+    index
+    name
+    spellcasting {
+      level
+      info {
+        name
+        desc
+      }
+      spellcasting_ability {
+        index
+        name
+      }
+    }
+  }
+}
+    `;
+
+export function useClassDescriptionQuery(options: Omit<Urql.UseQueryArgs<ClassDescriptionQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<ClassDescriptionQuery>({ query: ClassDescriptionDocument, ...options });
+};
 export const ClassesDocument = gql`
     query Classes {
   classes {
@@ -14799,9 +14872,37 @@ export const ClassesDocument = gql`
 export function useClassesQuery(options: Omit<Urql.UseQueryArgs<ClassesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ClassesQuery>({ query: ClassesDocument, ...options });
 };
+export const ClassSpellLevelsDocument = gql`
+    query ClassSpellLevels($index: String!, $level: Float!) {
+  level(filter: {class: {index: $index}, level: $level}) {
+    index
+    spellcasting {
+      cantrips_known
+      spell_slots_level_1
+      spell_slots_level_2
+      spell_slots_level_3
+      spell_slots_level_4
+      spell_slots_level_5
+      spell_slots_level_6
+      spell_slots_level_7
+      spell_slots_level_8
+      spell_slots_level_9
+      spells_known
+    }
+  }
+}
+    `;
+
+export function useClassSpellLevelsQuery(options: Omit<Urql.UseQueryArgs<ClassSpellLevelsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<ClassSpellLevelsQuery>({ query: ClassSpellLevelsDocument, ...options });
+};
 export const ClassSpellListDocument = gql`
-    query ClassSpellList($index: String!) {
-  spells(filter: {classes: [{index: $index}]}, limit: 10) {
+    query ClassSpellList($index: String!, $level: Float!) {
+  spells(
+    filter: {classes: [{index: $index}], level: $level}
+    sort: _ID_ASC
+    limit: 500
+  ) {
     ...SpellDetails
   }
 }

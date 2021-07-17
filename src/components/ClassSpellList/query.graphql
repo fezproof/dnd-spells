@@ -1,5 +1,9 @@
-query ClassSpellList($index: String!) {
-  spells(filter: { classes: [{ index: $index }] }, limit: 10) {
+query ClassSpellList($index: String!, $level: Float!) {
+  spells(
+    filter: { classes: [{ index: $index }], level: $level }
+    sort: _ID_ASC
+    limit: 500
+  ) {
     ...SpellDetails
   }
 }

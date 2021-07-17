@@ -18,4 +18,8 @@ fragment SpellDetails on Spell {
   }
   attack_type
   desc
+  subclasses {
+    index
+    name
+  }
 }

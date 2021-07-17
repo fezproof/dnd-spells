@@ -1,0 +1,17 @@
+query ClassDescription($index: String!) {
+  class(filter: { index: $index }) {
+    index
+    name
+    spellcasting {
+      level
+      info {
+        name
+        desc
+      }
+      spellcasting_ability {
+        index
+        name
+      }
+    }
+  }
+}
