@@ -1,5 +1,5 @@
-import React from 'react'
-import Avatar from './components/Avatar'
+import React from 'react';
+import Avatar from './components/Avatar';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
