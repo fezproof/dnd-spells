@@ -1,5 +1,6 @@
 overwrite: true
-schema: 'https://www.dnd5eapi.co/graphql'
+schema: src/generated/schema.graphql
+# schema: 'https://www.dnd5eapi.co/graphql'
 documents: 'src/**/*.graphql'
 generates:
   src/generated/graphql.ts:
@@ -7,3 +8,9 @@ generates:
       - typescript
       - typescript-operations
       - typescript-urql
+  # If needed to generate local schema
+  # src/generated/schema.graphql:
+  #   plugins:
+  #     - schema-ast
+  #   config:
+  #     includeDirectives: true
