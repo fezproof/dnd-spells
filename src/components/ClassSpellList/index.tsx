@@ -6,12 +6,10 @@ import {
 } from '../../generated/graphql';
 import SpellDetails from '../SpellDetails';
 
-const ClassSpellList: FC<ClassSpellListQueryVariables> = ({
-  class: classVar,
-}) => {
+const ClassSpellList: FC<ClassSpellListQueryVariables> = ({ index }) => {
   const [result] = useClassSpellListQuery({
     variables: {
-      class: classVar,
+      index,
     },
   });
   const { data, fetching, error } = result;

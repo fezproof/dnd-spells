@@ -14723,7 +14723,7 @@ export type ClassesQuery = (
 );
 
 export type ClassSpellListQueryVariables = Exact<{
-  class: Scalars['String'];
+  index: Scalars['String'];
 }>;
 
 
@@ -14800,8 +14800,8 @@ export function useClassesQuery(options: Omit<Urql.UseQueryArgs<ClassesQueryVari
   return Urql.useQuery<ClassesQuery>({ query: ClassesDocument, ...options });
 };
 export const ClassSpellListDocument = gql`
-    query ClassSpellList($class: String!) {
-  spells(filter: {classes: [{index: $class}]}, limit: 10) {
+    query ClassSpellList($index: String!) {
+  spells(filter: {classes: [{index: $index}]}, limit: 10) {
     ...SpellDetails
   }
 }
