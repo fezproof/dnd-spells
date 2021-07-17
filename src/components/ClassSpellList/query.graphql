@@ -1,0 +1,5 @@
+query ClassSpellList($class: String!) {
+  spells(filter: { classes: [{ index: $class }] }) {
+    ...SpellDetails
+  }
+}

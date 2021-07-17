@@ -14722,7 +14722,54 @@ export type ClassesQuery = (
   )> }
 );
 
+export type ClassSpellListQueryVariables = Exact<{
+  class: Scalars['String'];
+}>;
 
+
+export type ClassSpellListQuery = (
+  { __typename?: 'Query' }
+  & { spells: Array<(
+    { __typename?: 'Spell' }
+    & SpellDetailsFragment
+  )> }
+);
+
+export type SpellDetailsFragment = (
+  { __typename?: 'Spell' }
+  & Pick<Spell, 'index' | 'name' | 'duration' | 'level' | 'casting_time' | 'range' | 'ritual' | 'material' | 'components' | 'attack_type' | 'desc'>
+  & { school?: Maybe<(
+    { __typename?: 'SpellSchool' }
+    & Pick<SpellSchool, 'index' | 'name'>
+  )>, area_of_effect?: Maybe<(
+    { __typename?: 'SpellArea_of_effect' }
+    & Pick<SpellArea_Of_Effect, 'size' | 'type'>
+  )> }
+);
+
+export const SpellDetailsFragmentDoc = gql`
+    fragment SpellDetails on Spell {
+  index
+  name
+  duration
+  level
+  casting_time
+  range
+  ritual
+  material
+  components
+  school {
+    index
+    name
+  }
+  area_of_effect {
+    size
+    type
+  }
+  attack_type
+  desc
+}
+    `;
 export const ClassesDocument = gql`
     query Classes {
   classes {
@@ -14738,4 +14785,15 @@ export const ClassesDocument = gql`
 
 export function useClassesQuery(options: Omit<Urql.UseQueryArgs<ClassesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ClassesQuery>({ query: ClassesDocument, ...options });
+};
+export const ClassSpellListDocument = gql`
+    query ClassSpellList($class: String!) {
+  spells(filter: {classes: [{index: $class}]}) {
+    ...SpellDetails
+  }
+}
+    ${SpellDetailsFragmentDoc}`;
+
+export function useClassSpellListQuery(options: Omit<Urql.UseQueryArgs<ClassSpellListQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<ClassSpellListQuery>({ query: ClassSpellListDocument, ...options });
 };

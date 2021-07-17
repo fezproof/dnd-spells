@@ -1,0 +1,21 @@
+fragment SpellDetails on Spell {
+  index
+  name
+  duration
+  level
+  casting_time
+  range
+  ritual
+  material
+  components
+  school {
+    index
+    name
+  }
+  area_of_effect {
+    size
+    type
+  }
+  attack_type
+  desc
+}
