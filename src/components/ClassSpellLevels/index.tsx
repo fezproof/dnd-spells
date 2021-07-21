@@ -31,8 +31,7 @@ const ClassSpellLevel: FC<{
 const ClassSpellLevelsSuccess: FC<
   CellSuccessProps<ClassSpellLevelsQuery, ClassSpellLevelsQueryVariables>
 > = ({ data, variables: { index } }) => (
-  <div>
-    <h3 className="mb-4 text-2xl font-bold text-center">Spells Levels</h3>
+  <>
     <ClassSpellLevel
       classIndex={index}
       count={data?.level?.spellcasting?.cantrips_known || 0}
@@ -111,7 +110,7 @@ const ClassSpellLevelsSuccess: FC<
         level={9}
       />
     ) : null}
-  </div>
+  </>
 );
 
 const ClassSpellLevels = withCell<

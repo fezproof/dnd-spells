@@ -11,7 +11,8 @@ const ClassPage: FC = () => {
         <ClassDescription index={index} />
       </section>
       <section className="mb-16">
-        <ClassSpellLevels index={index} level={20} />
+        <h3 className="mb-8 text-2xl font-bold text-center">Spells Levels</h3>
+        <ClassSpellLevels index={index} level={1} />
       </section>
     </main>
   );
