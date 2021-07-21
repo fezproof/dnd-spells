@@ -1,5 +1,0 @@
-query SubClassSpellList($subclass: String!) {
-  spells(filter: { subclasses: [{ index: $subclass }] }, limit: 10) {
-    ...SpellDetails
-  }
-}

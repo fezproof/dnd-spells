@@ -14828,19 +14828,6 @@ export type SpellDetailsHigherLevelsFragment = (
   & Pick<Spell, 'higher_level'>
 );
 
-export type SubClassSpellListQueryVariables = Exact<{
-  subclass: Scalars['String'];
-}>;
-
-
-export type SubClassSpellListQuery = (
-  { __typename?: 'Query' }
-  & { spells: Array<(
-    { __typename?: 'Spell' }
-    & SpellDetailsFragment
-  )> }
-);
-
 export const SpellDetailsHeaderFragmentDoc = gql`
     fragment SpellDetailsHeader on Spell {
   name
@@ -14979,15 +14966,4 @@ export const ClassSpellListDocument = gql`
 
 export function useClassSpellListQuery(options: Omit<Urql.UseQueryArgs<ClassSpellListQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ClassSpellListQuery>({ query: ClassSpellListDocument, ...options });
-};
-export const SubClassSpellListDocument = gql`
-    query SubClassSpellList($subclass: String!) {
-  spells(filter: {subclasses: [{index: $subclass}]}, limit: 10) {
-    ...SpellDetails
-  }
-}
-    ${SpellDetailsFragmentDoc}`;
-
-export function useSubClassSpellListQuery(options: Omit<Urql.UseQueryArgs<SubClassSpellListQueryVariables>, 'query'> = {}) {
-  return Urql.useQuery<SubClassSpellListQuery>({ query: SubClassSpellListDocument, ...options });
 };
