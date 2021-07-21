@@ -15,6 +15,8 @@ const SpellInfo: FC<{ icon: string; text?: Maybe<string>; type: string }> = ({
     <img
       src={icon}
       className="mb-1 w-5 h-5"
+      height={20}
+      width={20}
       alt={text || 'info'}
       title={`${type}: ${text || 'info'}`}
     />

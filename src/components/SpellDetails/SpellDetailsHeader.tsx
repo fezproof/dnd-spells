@@ -7,6 +7,8 @@ const SpellSchool: FC<{ school: string }> = ({ school }) => (
     <img
       src={spellSchoolToIcon(school)}
       className="mb-1 w-8 h-8"
+      height={32}
+      width={32}
       alt={school}
       title={school}
     />
