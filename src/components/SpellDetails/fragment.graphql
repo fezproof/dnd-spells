@@ -1,25 +1,50 @@
 fragment SpellDetails on Spell {
   index
+  ...SpellDetailsHeader
+  ...SpellDetailsInfo
+  ...SpellDetailsDesc
+  ...SpellDetailsBanners
+  ...SpellDetailsHigherLevels
+}
+
+fragment SpellDetailsHeader on Spell {
   name
-  duration
-  level
-  casting_time
-  range
-  ritual
-  material
-  components
   school {
     index
     name
   }
-  area_of_effect {
-    size
-    type
-  }
-  attack_type
-  desc
-  subclasses {
+  classes {
     index
     name
   }
+  level
+}
+
+fragment SpellDetailsInfo on Spell {
+  casting_time
+  range
+  duration
+  concentration
+  components
+}
+
+fragment SpellDetailsDesc on Spell {
+  desc
+}
+
+fragment SpellDetailsBanners on Spell {
+  dc {
+    dc_success
+    dc_type {
+      index
+      name
+    }
+    desc
+  }
+  material
+  ritual
+}
+
+fragment SpellDetailsHigherLevels on Spell {
+  higher_level
 }

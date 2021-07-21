@@ -14780,17 +14780,52 @@ export type ClassSpellListQuery = (
 
 export type SpellDetailsFragment = (
   { __typename?: 'Spell' }
-  & Pick<Spell, 'index' | 'name' | 'duration' | 'level' | 'casting_time' | 'range' | 'ritual' | 'material' | 'components' | 'attack_type' | 'desc'>
+  & Pick<Spell, 'index'>
+  & SpellDetailsHeaderFragment
+  & SpellDetailsInfoFragment
+  & SpellDetailsDescFragment
+  & SpellDetailsBannersFragment
+  & SpellDetailsHigherLevelsFragment
+);
+
+export type SpellDetailsHeaderFragment = (
+  { __typename?: 'Spell' }
+  & Pick<Spell, 'name' | 'level'>
   & { school?: Maybe<(
     { __typename?: 'SpellSchool' }
     & Pick<SpellSchool, 'index' | 'name'>
-  )>, area_of_effect?: Maybe<(
-    { __typename?: 'SpellArea_of_effect' }
-    & Pick<SpellArea_Of_Effect, 'size' | 'type'>
-  )>, subclasses?: Maybe<Array<Maybe<(
-    { __typename?: 'SpellSubclasses' }
-    & Pick<SpellSubclasses, 'index' | 'name'>
+  )>, classes?: Maybe<Array<Maybe<(
+    { __typename?: 'SpellClasses' }
+    & Pick<SpellClasses, 'index' | 'name'>
   )>>> }
+);
+
+export type SpellDetailsInfoFragment = (
+  { __typename?: 'Spell' }
+  & Pick<Spell, 'casting_time' | 'range' | 'duration' | 'concentration' | 'components'>
+);
+
+export type SpellDetailsDescFragment = (
+  { __typename?: 'Spell' }
+  & Pick<Spell, 'desc'>
+);
+
+export type SpellDetailsBannersFragment = (
+  { __typename?: 'Spell' }
+  & Pick<Spell, 'material' | 'ritual'>
+  & { dc?: Maybe<(
+    { __typename?: 'SpellDc' }
+    & Pick<SpellDc, 'dc_success' | 'desc'>
+    & { dc_type?: Maybe<(
+      { __typename?: 'SpellDcDc_type' }
+      & Pick<SpellDcDc_Type, 'index' | 'name'>
+    )> }
+  )> }
+);
+
+export type SpellDetailsHigherLevelsFragment = (
+  { __typename?: 'Spell' }
+  & Pick<Spell, 'higher_level'>
 );
 
 export type SubClassSpellListQueryVariables = Exact<{
@@ -14806,33 +14841,67 @@ export type SubClassSpellListQuery = (
   )> }
 );
 
-export const SpellDetailsFragmentDoc = gql`
-    fragment SpellDetails on Spell {
-  index
+export const SpellDetailsHeaderFragmentDoc = gql`
+    fragment SpellDetailsHeader on Spell {
   name
-  duration
-  level
-  casting_time
-  range
-  ritual
-  material
-  components
   school {
     index
     name
   }
-  area_of_effect {
-    size
-    type
-  }
-  attack_type
-  desc
-  subclasses {
+  classes {
     index
     name
   }
+  level
 }
     `;
+export const SpellDetailsInfoFragmentDoc = gql`
+    fragment SpellDetailsInfo on Spell {
+  casting_time
+  range
+  duration
+  concentration
+  components
+}
+    `;
+export const SpellDetailsDescFragmentDoc = gql`
+    fragment SpellDetailsDesc on Spell {
+  desc
+}
+    `;
+export const SpellDetailsBannersFragmentDoc = gql`
+    fragment SpellDetailsBanners on Spell {
+  dc {
+    dc_success
+    dc_type {
+      index
+      name
+    }
+    desc
+  }
+  material
+  ritual
+}
+    `;
+export const SpellDetailsHigherLevelsFragmentDoc = gql`
+    fragment SpellDetailsHigherLevels on Spell {
+  higher_level
+}
+    `;
+export const SpellDetailsFragmentDoc = gql`
+    fragment SpellDetails on Spell {
+  index
+  ...SpellDetailsHeader
+  ...SpellDetailsInfo
+  ...SpellDetailsDesc
+  ...SpellDetailsBanners
+  ...SpellDetailsHigherLevels
+}
+    ${SpellDetailsHeaderFragmentDoc}
+${SpellDetailsInfoFragmentDoc}
+${SpellDetailsDescFragmentDoc}
+${SpellDetailsBannersFragmentDoc}
+${SpellDetailsHigherLevelsFragmentDoc}`;
 export const ClassDescriptionDocument = gql`
     query ClassDescription($index: String!) {
   class(filter: {index: $index}) {

@@ -21,6 +21,7 @@
     "graphql": "graphql-codegen --config .graphqlrc"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "@urql/exchange-retry": "^0.2.1",
     "graphql": "^15.5.1",
     "react": "^17.0.2",
