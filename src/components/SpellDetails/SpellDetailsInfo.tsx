@@ -31,7 +31,7 @@ const SpellDetailsInfo: FC<SpellDetailsInfoFragment> = ({
   concentration,
   components,
 }) => (
-  <div className="grid grid-cols-5 gap-2 justify-center items-center p-3 border-t border-b border-black">
+  <div className="grid grid-cols-5 gap-2 justify-center items-center p-3 border-t border-b border-fade">
     <SpellInfo type="Cast time" icon={ClockIcon} text={casting_time} />
     <SpellInfo type="Range" icon={BullseyeIcon} text={range} />
     <SpellInfo type="Duration" icon={HourglassIcon} text={duration} />

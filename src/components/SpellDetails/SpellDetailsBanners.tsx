@@ -9,7 +9,7 @@ const SpellDetailsBanner: FC<{ icon: string; text: string }> = ({
   icon,
   text,
 }) => (
-  <div className="flex flex-row flex-nowrap justify-start items-center p-2 space-x-4 w-full border-t border-b border-black">
+  <div className="flex flex-row flex-nowrap justify-start items-center p-2 space-x-4 w-full border-t border-b border-fade">
     <img src={icon} alt="Material" className="inline-block w-8 h-8" />
     <span className="flex-1">{text}</span>
   </div>

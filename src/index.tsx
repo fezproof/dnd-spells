@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import 'tailwindcss/tailwind.css';
+import './global.css';
 import { Provider } from 'urql';
 import App from './App';
 import client from './config/urqlConfig';
