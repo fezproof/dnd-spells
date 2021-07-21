@@ -14,8 +14,8 @@ export type CellEmptyProps<TData, TVariables> = Omit<
 
 export type CellSuccessProps<TData, TVariables> = Omit<
   UseQueryState<TData, TVariables>,
-  'error' | 'data' | 'fetching'
-> & { data: TData; refresh: UseQueryResponse<TData, TVariables>[1] };
+  'error' | 'fetching'
+> & { refresh: UseQueryResponse<TData, TVariables>[1]; variables: TVariables };
 
 export type WithCellProps<TData, TVars> = {
   QUERY: DocumentNode;
@@ -82,7 +82,12 @@ const CellLoader = <TData, TVars>({
 
   if (data) {
     return (
-      <Success data={data} refresh={refresh} {...queryRest} {...variables} />
+      <Success
+        data={data}
+        refresh={refresh}
+        variables={variables}
+        {...queryRest}
+      />
     );
   }
 

@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
 const SpellDetailsSkeleton: FC = () => (
-  <div className="animate-pulse">
-    <div className="flex flex-col flex-nowrap px-4 pt-8 pb-10 my-4 space-y-4 max-w-prose max-h-screen border border-gray-400">
+  <div className="flex flex-row flex-nowrap justify-center items-center w-full animate-pulse">
+    <div className="flex flex-col flex-nowrap flex-1 px-4 pt-8 pb-10 my-4 space-y-4 max-w-prose max-h-screen border border-gray-400">
       <div className="flex flex-row flex-nowrap">
         <div className="w-10 h-10 bg-gray-400 rounded-full" />
         <div className="flex flex-col flex-nowrap flex-1 justify-center items-center px-4 text-center">
