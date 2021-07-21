@@ -5,6 +5,7 @@ import {
   useClassSpellListQuery,
 } from '../../generated/graphql';
 import SpellDetails from '../SpellDetails';
+import SpellDetailsSkeleton from '../SpellDetails/SpellDetailsSkeleton';
 
 const ClassSpellList: FC<ClassSpellListQueryVariables> = ({ index, level }) => {
   const [result] = useClassSpellListQuery({
@@ -16,7 +17,13 @@ const ClassSpellList: FC<ClassSpellListQueryVariables> = ({ index, level }) => {
 
   const { data, fetching, error } = result;
 
-  if (fetching) return <p>Loading...</p>;
+  if (fetching)
+    return (
+      <div>
+        <SpellDetailsSkeleton />
+      </div>
+    );
+
   if (error) return <p>Oh no... {error.message}</p>;
 
   return (
