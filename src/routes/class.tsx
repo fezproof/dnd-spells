@@ -7,10 +7,10 @@ const ClassPage: FC = () => {
   const { index } = useParams();
   return (
     <main>
-      <section>
+      <section className="mb-16">
         <ClassDescription index={index} />
       </section>
-      <section>
+      <section className="mb-16">
         <ClassSpellLevels index={index} level={20} />
       </section>
     </main>

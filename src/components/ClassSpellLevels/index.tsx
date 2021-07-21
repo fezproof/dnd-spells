@@ -13,11 +13,17 @@ const ClassSpellLevel: FC<{
   count: number;
   classIndex: string;
 }> = ({ title, level, count, classIndex }) => {
+  if (count === 0) return null;
+
   return (
-    <div>
-      <h4 className="mb-4 text-lg">{title}</h4>
-      <div>{count}</div>
-      <ClassSpellList index={classIndex} level={level} />
+    <div className="mx-auto mb-6 max-w-screen-md">
+      <div className="flex flex-col flex-nowrap justify-center items-center py-2 border-t border-b border-fade">
+        <h4 className="mb-4 text-lg">{title}</h4>
+        <div>{count} slots per day</div>
+      </div>
+      <div className="mt-4">
+        <ClassSpellList index={classIndex} level={level} />
+      </div>
     </div>
   );
 };
@@ -26,7 +32,7 @@ const ClassSpellLevelsSuccess: FC<
   CellSuccessProps<ClassSpellLevelsQuery, ClassSpellLevelsQueryVariables>
 > = ({ data, variables: { index } }) => (
   <div>
-    <h3 className="mb-4 text-xl">Spells Levels</h3>
+    <h3 className="mb-4 text-2xl font-bold text-center">Spells Levels</h3>
     <ClassSpellLevel
       classIndex={index}
       count={data?.level?.spellcasting?.cantrips_known || 0}

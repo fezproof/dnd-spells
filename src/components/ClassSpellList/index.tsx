@@ -18,11 +18,13 @@ const ClassSpellListSuccess: FC<
   CellSuccessProps<ClassSpellListQuery, ClassSpellListQueryVariables>
 > = ({ data }) => (
   <>
-    {data?.spells && data.spells.length
-      ? data?.spells.map((spell) => (
-          <SpellDetails key={spell.index} spell={spell} />
-        ))
-      : 'No spells'}
+    {data?.spells && data.spells.length ? (
+      data?.spells.map((spell) => (
+        <SpellDetails key={spell.index} spell={spell} />
+      ))
+    ) : (
+      <div className="italic">- No spells -</div>
+    )}
   </>
 );
 
