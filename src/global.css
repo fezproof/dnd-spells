@@ -13,4 +13,9 @@
       )
       100% 1;
   }
+
+  .spell-header-grid {
+    @apply grid grid-rows-1 gap-4;
+    grid-template-columns: minmax(4ch, 1fr) auto minmax(4ch, 1fr);
+  }
 }
