@@ -13,10 +13,6 @@ fragment SpellDetailsHeader on Spell {
     index
     name
   }
-  classes {
-    index
-    name
-  }
   level
 }
 

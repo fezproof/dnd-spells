@@ -9,7 +9,9 @@ import SpellDetails from '../SpellDetails';
 import SpellDetailsSkeleton from '../SpellDetails/SpellDetailsSkeleton';
 
 const ClassSpellListContainer: FC = ({ children }) => (
-  <div className="flex flex-col justify-center items-center">{children}</div>
+  <div className="flex flex-col justify-center items-center mb-10">
+    {children}
+  </div>
 );
 
 const ClassSpellListLoading: FC = () => <SpellDetailsSkeleton />;

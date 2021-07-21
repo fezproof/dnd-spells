@@ -14794,10 +14794,7 @@ export type SpellDetailsHeaderFragment = (
   & { school?: Maybe<(
     { __typename?: 'SpellSchool' }
     & Pick<SpellSchool, 'index' | 'name'>
-  )>, classes?: Maybe<Array<Maybe<(
-    { __typename?: 'SpellClasses' }
-    & Pick<SpellClasses, 'index' | 'name'>
-  )>>> }
+  )> }
 );
 
 export type SpellDetailsInfoFragment = (
@@ -14832,10 +14829,6 @@ export const SpellDetailsHeaderFragmentDoc = gql`
     fragment SpellDetailsHeader on Spell {
   name
   school {
-    index
-    name
-  }
-  classes {
     index
     name
   }
