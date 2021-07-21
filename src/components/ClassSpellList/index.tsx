@@ -1,40 +1,38 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import {
+  ClassSpellListDocument,
+  ClassSpellListQuery,
   ClassSpellListQueryVariables,
-  useClassSpellListQuery,
 } from '../../generated/graphql';
+import { CellSuccessProps, withCell } from '../../utils/withCell';
 import SpellDetails from '../SpellDetails';
 import SpellDetailsSkeleton from '../SpellDetails/SpellDetailsSkeleton';
 
-const ClassSpellList: FC<ClassSpellListQueryVariables> = ({ index, level }) => {
-  const [result] = useClassSpellListQuery({
-    variables: {
-      index,
-      level,
-    },
-  });
+const ClassSpellListLoading: FC = () => (
+  <div>
+    <SpellDetailsSkeleton />
+  </div>
+);
 
-  const { data, fetching, error } = result;
+const ClassSpellListSuccess: FC<
+  CellSuccessProps<ClassSpellListQuery, ClassSpellListQueryVariables>
+> = ({ data }) => (
+  <div>
+    {data?.spells && data.spells.length
+      ? data?.spells.map((spell) => (
+          <SpellDetails key={spell.index} spell={spell} />
+        ))
+      : 'No spells'}
+  </div>
+);
 
-  if (fetching)
-    return (
-      <div>
-        <SpellDetailsSkeleton />
-      </div>
-    );
-
-  if (error) return <p>Oh no... {error.message}</p>;
-
-  return (
-    <div>
-      {data?.spells && data.spells.length
-        ? data?.spells.map((spell) => (
-            <SpellDetails key={spell.index} spell={spell} />
-          ))
-        : 'No spells'}
-    </div>
-  );
-};
+const ClassSpellList = withCell<
+  ClassSpellListQuery,
+  ClassSpellListQueryVariables
+>({
+  QUERY: ClassSpellListDocument,
+  Success: ClassSpellListSuccess,
+  Loading: ClassSpellListLoading,
+});
 
 export default ClassSpellList;
