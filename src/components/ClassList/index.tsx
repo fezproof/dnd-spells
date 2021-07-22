@@ -26,10 +26,12 @@ const ClassListLoading: FC = () => (
   <>
     {new Array(12).fill(0).map((_, index) => {
       return (
-        <ClassListItem key={index}>
-          <SkeletonImage className="w-20 h-20" />
-          <SkeletonText lines={1} />
-        </ClassListItem>
+        <div key={index} className="animate-pulse">
+          <ClassListItem>
+            <SkeletonImage className="w-20 h-20" />
+            <SkeletonText lines={1} />
+          </ClassListItem>
+        </div>
       );
     })}
   </>

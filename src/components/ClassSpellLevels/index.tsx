@@ -28,6 +28,18 @@ const ClassSpellLevel: FC<{
   );
 };
 
+const ClassSpellLevelLoading: FC = () => (
+  <div className="mx-auto mb-6 max-w-screen-md animate-pulse">
+    <div className="flex flex-col flex-nowrap justify-center items-center py-2 border-t border-b border-fade">
+      <div className=" mb-4 w-32 h-6 bg-gray-400 rounded" />
+      <div className=" mb-4 w-8 h-4 bg-gray-400 rounded" />
+    </div>
+    {/* <div className="mt-4">
+  <ClassSpellList index={classIndex} level={level} />
+</div> */}
+  </div>
+);
+
 const ClassSpellLevelsSuccess: FC<
   CellSuccessProps<ClassSpellLevelsQuery, ClassSpellLevelsQueryVariables>
 > = ({ data, variables: { index } }) => (
@@ -119,6 +131,7 @@ const ClassSpellLevels = withCell<
 >({
   QUERY: ClassSpellLevelsDocument,
   Success: ClassSpellLevelsSuccess,
+  Loading: ClassSpellLevelLoading,
 });
 
 export default ClassSpellLevels;
