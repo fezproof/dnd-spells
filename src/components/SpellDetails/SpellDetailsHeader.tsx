@@ -3,7 +3,7 @@ import { SpellDetailsHeaderFragment } from '../../generated/graphql';
 import spellSchoolToIcon from '../../utils/spellSchoolToIcon';
 
 const SpellSchool: FC<{ school: string }> = ({ school }) => (
-  <div className="flex flex-col flex-nowrap justify-center items-center place-self-start text-sm text-center">
+  <div className="flex flex-col flex-nowrap justify-center items-center place-self-end text-sm text-center">
     <img
       src={spellSchoolToIcon(school)}
       className="mb-1 w-8 h-8"
