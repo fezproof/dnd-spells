@@ -5,7 +5,7 @@ import ClassPage from './class';
 
 const AppRouter: FC = () => {
   return (
-    <Routes>
+    <Routes basename="/dnd-spells">
       <Route path="/">
         <ClassList />
       </Route>
