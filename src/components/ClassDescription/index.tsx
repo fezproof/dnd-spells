@@ -35,21 +35,27 @@ const ClassDescriptionSuccess: FC<
   <>
     <h2 className="mb-8 text-4xl font-bold text-center">{data?.class?.name}</h2>
     <h3 className="mb-4 text-2xl font-bold">Spellcasting</h3>
-    <p className="mb-4 text-lg font-semibold">
-      Starting Level: {data?.class?.spellcasting?.level}
-    </p>
-    <div>
-      {data?.class?.spellcasting?.info?.map((spellinfo, index) => (
-        <div key={index}>
-          <h4 className="mb-2 text-lg font-semibold">{spellinfo?.name}</h4>
-          {spellinfo?.desc?.map((desc, index) => (
-            <p key={index} className="mb-2 last:mb-6">
-              {desc}
-            </p>
+    {data?.class?.spellcasting?.level ? (
+      <>
+        <p className="mb-4 text-lg font-semibold">
+          Starting Level: {data?.class?.spellcasting?.level}
+        </p>
+        <div>
+          {data?.class?.spellcasting?.info?.map((spellinfo, index) => (
+            <div key={index}>
+              <h4 className="mb-2 text-lg font-semibold">{spellinfo?.name}</h4>
+              {spellinfo?.desc?.map((desc, index) => (
+                <p key={index} className="mb-2 last:mb-6">
+                  {desc}
+                </p>
+              ))}
+            </div>
           ))}
         </div>
-      ))}
-    </div>
+      </>
+    ) : (
+      <div>This class is not able to cast spells</div>
+    )}
   </>
 );
 

@@ -14739,10 +14739,6 @@ export type ClassesQuery = (
   & { classes: Array<(
     { __typename?: 'Class' }
     & Pick<Class, 'index' | 'name'>
-    & { subclasses?: Maybe<Array<Maybe<(
-      { __typename?: 'ClassSubclasses' }
-      & Pick<ClassSubclasses, 'index' | 'name'>
-    )>>> }
   )> }
 );
 
@@ -14910,10 +14906,6 @@ export const ClassesDocument = gql`
   classes {
     index
     name
-    subclasses {
-      index
-      name
-    }
   }
 }
     `;

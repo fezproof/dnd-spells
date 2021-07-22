@@ -34,9 +34,6 @@ const ClassSpellLevelLoading: FC = () => (
       <div className=" mb-4 w-32 h-6 bg-gray-400 rounded" />
       <div className=" mb-4 w-8 h-4 bg-gray-400 rounded" />
     </div>
-    {/* <div className="mt-4">
-  <ClassSpellList index={classIndex} level={level} />
-</div> */}
   </div>
 );
 
@@ -44,12 +41,18 @@ const ClassSpellLevelsSuccess: FC<
   CellSuccessProps<ClassSpellLevelsQuery, ClassSpellLevelsQueryVariables>
 > = ({ data, variables: { index } }) => (
   <>
-    <ClassSpellLevel
-      classIndex={index}
-      count={data?.level?.spellcasting?.cantrips_known || 0}
-      title="Cantrips"
-      level={0}
-    />
+    {data?.level?.spellcasting?.cantrips_known && (
+      <h3 className="mb-8 text-2xl font-bold text-center">Spells Levels</h3>
+    )}
+
+    {data?.level?.spellcasting?.cantrips_known && (
+      <ClassSpellLevel
+        classIndex={index}
+        count={data.level.spellcasting.cantrips_known}
+        title="Cantrips"
+        level={0}
+      />
+    )}
     {data?.level?.spellcasting?.spell_slots_level_1 ? (
       <ClassSpellLevel
         classIndex={index}
