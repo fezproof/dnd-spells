@@ -11,9 +11,27 @@
     />
     
     <link rel="preconnect" href="https://www.dnd5eapi.co" />
-  <script type="module" crossorigin src="/dnd-spells/assets/index.106b9b26.js"></script>
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
+  <script type="module" crossorigin src="/dnd-spells/assets/main.85e15be7.js"></script>
   <link rel="modulepreload" href="/dnd-spells/assets/vendor.cde3453d.js">
-  <link rel="stylesheet" href="/dnd-spells/assets/index.bb0ea5e6.css">
+  <link rel="stylesheet" href="/dnd-spells/assets/main.71a0f2aa.css">
 </head>
   <body>
     <div id="root"></div>
