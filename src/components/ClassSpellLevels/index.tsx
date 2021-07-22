@@ -19,7 +19,8 @@ const ClassSpellLevel: FC<{
     <div className="mx-auto mb-6 max-w-screen-md">
       <div className="flex flex-col flex-nowrap justify-center items-center py-2 border-t border-b border-fade">
         <h4 className="mb-4 text-lg">{title}</h4>
-        <div>{count} slots per day</div>
+        {level === 0 && <div>{count} cantrips available</div>}
+        {level !== 0 && <div>{count} slots per day</div>}
       </div>
       <div className="mt-4">
         <ClassSpellList index={classIndex} level={level} />
@@ -42,7 +43,7 @@ const ClassSpellLevelsSuccess: FC<
 > = ({ data, variables: { index } }) => (
   <>
     {data?.level?.spellcasting?.cantrips_known && (
-      <h3 className="mb-8 text-2xl font-bold text-center">Spells Levels</h3>
+      <h3 className="mb-8 text-2xl font-bold text-center">Spells Available</h3>
     )}
 
     {data?.level?.spellcasting?.cantrips_known && (
