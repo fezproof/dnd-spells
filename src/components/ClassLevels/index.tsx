@@ -56,6 +56,7 @@ const ClassLevelDetialsSuccess: FC<
             onChange={(e) => {
               setLevel(Number(e.target.value));
             }}
+            className="rounded border-gray-400 focus:border-black focus:ring-2 focus:ring-black focus:outline-none"
           >
             <option value="1">1</option>
             <option value="2">2</option>
