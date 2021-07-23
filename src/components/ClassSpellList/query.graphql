@@ -1,6 +1,14 @@
-query ClassSpellList($index: String!, $level: Float!) {
+query ClassSpellList(
+  $index: String!
+  $subclass: [FilterFindManySpellSubclassesInput]
+  $level: Float!
+) {
   spells(
-    filter: { classes: [{ index: $index }], level: $level }
+    filter: {
+      classes: [{ index: $index }]
+      level: $level
+      subclasses: $subclass
+    }
     sort: _ID_ASC
     limit: 500
   ) {

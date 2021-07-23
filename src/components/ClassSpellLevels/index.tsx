@@ -12,7 +12,8 @@ const ClassSpellLevel: FC<{
   level: number;
   count: number;
   classIndex: string;
-}> = ({ title, level, count, classIndex }) => {
+  subclassIndex?: string;
+}> = ({ title, level, count, classIndex, subclassIndex }) => {
   if (count === 0) return null;
 
   return (
@@ -23,7 +24,11 @@ const ClassSpellLevel: FC<{
         {level !== 0 && <div>{count} slots per day</div>}
       </div>
       <div className="mt-4">
-        <ClassSpellList index={classIndex} level={level} />
+        <ClassSpellList
+          index={classIndex}
+          level={level}
+          subclass={subclassIndex ? [{ index: subclassIndex }] : undefined}
+        />
       </div>
     </div>
   );
@@ -38,9 +43,17 @@ const ClassSpellLevelLoading: FC = () => (
   </div>
 );
 
+interface ClassSpellLevelsQueryVariablesExtended
+  extends ClassSpellLevelsQueryVariables {
+  subclassIndex?: string;
+}
+
 const ClassSpellLevelsSuccess: FC<
-  CellSuccessProps<ClassSpellLevelsQuery, ClassSpellLevelsQueryVariables>
-> = ({ data, variables: { index } }) => (
+  CellSuccessProps<
+    ClassSpellLevelsQuery,
+    ClassSpellLevelsQueryVariablesExtended
+  >
+> = ({ data, variables: { index, subclassIndex } }) => (
   <>
     {data?.level?.spellcasting?.cantrips_known && (
       <h3 className="mb-8 text-2xl font-bold text-center">Spells Available</h3>
@@ -49,6 +62,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.cantrips_known && (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.cantrips_known}
         title="Cantrips"
         level={0}
@@ -57,6 +71,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_1 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_1}
         title="Level 1"
         level={1}
@@ -65,6 +80,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_2 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_2}
         title="Level 2"
         level={2}
@@ -73,6 +89,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_3 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_3}
         title="Level 3"
         level={3}
@@ -81,6 +98,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_4 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_4}
         title="Level 4"
         level={4}
@@ -89,6 +107,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_5 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_5}
         title="Level 5"
         level={5}
@@ -97,6 +116,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_6 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_6}
         title="Level 6"
         level={6}
@@ -105,6 +125,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_7 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_7}
         title="Level 7"
         level={7}
@@ -113,6 +134,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_8 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_8}
         title="Level 8"
         level={8}
@@ -121,6 +143,7 @@ const ClassSpellLevelsSuccess: FC<
     {data?.level?.spellcasting?.spell_slots_level_9 ? (
       <ClassSpellLevel
         classIndex={index}
+        subclassIndex={subclassIndex}
         count={data.level.spellcasting.spell_slots_level_9}
         title="Level 9"
         level={9}
@@ -131,7 +154,7 @@ const ClassSpellLevelsSuccess: FC<
 
 const ClassSpellLevels = withCell<
   ClassSpellLevelsQuery,
-  ClassSpellLevelsQueryVariables
+  ClassSpellLevelsQueryVariablesExtended
 >({
   QUERY: ClassSpellLevelsDocument,
   Success: ClassSpellLevelsSuccess,

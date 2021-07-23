@@ -14731,6 +14731,26 @@ export type ClassDescriptionQuery = (
   )> }
 );
 
+export type ClassLevelDetialsQueryVariables = Exact<{
+  index: Scalars['String'];
+}>;
+
+
+export type ClassLevelDetialsQuery = (
+  { __typename?: 'Query' }
+  & { class?: Maybe<(
+    { __typename?: 'Class' }
+    & Pick<Class, 'index'>
+    & { spellcasting?: Maybe<(
+      { __typename?: 'ClassSpellcasting' }
+      & Pick<ClassSpellcasting, 'level'>
+    )>, subclasses?: Maybe<Array<Maybe<(
+      { __typename?: 'ClassSubclasses' }
+      & Pick<ClassSubclasses, 'index' | 'name'>
+    )>>> }
+  )> }
+);
+
 export type ClassesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -14762,6 +14782,7 @@ export type ClassSpellLevelsQuery = (
 
 export type ClassSpellListQueryVariables = Exact<{
   index: Scalars['String'];
+  subclass?: Maybe<Array<Maybe<FilterFindManySpellSubclassesInput>> | Maybe<FilterFindManySpellSubclassesInput>>;
   level: Scalars['Float'];
 }>;
 
@@ -14901,6 +14922,24 @@ export const ClassDescriptionDocument = gql`
 export function useClassDescriptionQuery(options: Omit<Urql.UseQueryArgs<ClassDescriptionQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ClassDescriptionQuery>({ query: ClassDescriptionDocument, ...options });
 };
+export const ClassLevelDetialsDocument = gql`
+    query ClassLevelDetials($index: String!) {
+  class(filter: {index: $index}) {
+    index
+    spellcasting {
+      level
+    }
+    subclasses {
+      index
+      name
+    }
+  }
+}
+    `;
+
+export function useClassLevelDetialsQuery(options: Omit<Urql.UseQueryArgs<ClassLevelDetialsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<ClassLevelDetialsQuery>({ query: ClassLevelDetialsDocument, ...options });
+};
 export const ClassesDocument = gql`
     query Classes {
   classes {
@@ -14938,9 +14977,9 @@ export function useClassSpellLevelsQuery(options: Omit<Urql.UseQueryArgs<ClassSp
   return Urql.useQuery<ClassSpellLevelsQuery>({ query: ClassSpellLevelsDocument, ...options });
 };
 export const ClassSpellListDocument = gql`
-    query ClassSpellList($index: String!, $level: Float!) {
+    query ClassSpellList($index: String!, $subclass: [FilterFindManySpellSubclassesInput], $level: Float!) {
   spells(
-    filter: {classes: [{index: $index}], level: $level}
+    filter: {classes: [{index: $index}], level: $level, subclasses: $subclass}
     sort: _ID_ASC
     limit: 500
   ) {

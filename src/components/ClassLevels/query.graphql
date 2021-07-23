@@ -1,0 +1,12 @@
+query ClassLevelDetials($index: String!) {
+  class(filter: { index: $index }) {
+    index
+    spellcasting {
+      level
+    }
+    subclasses {
+      index
+      name
+    }
+  }
+}
